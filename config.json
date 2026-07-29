@@ -1,0 +1,14 @@
+{
+  "botName": "EvoBotz - MD",
+  "ownerName": "LevviCode",
+  "creator": [
+    "6285218341910"
+  ],
+  "prefix": [".", "#", "!", "/"],
+  "botMode": "self",
+  "accessDenied": {
+    "owner": "Fitur ini khusus Owner.",
+    "creator": "Fitur ini khusus Creator.",
+    "premium": "Fitur ini khusus Premium."
+  }
+}
