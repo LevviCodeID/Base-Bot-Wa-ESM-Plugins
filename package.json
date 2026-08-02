@@ -1,6 +1,7 @@
 {
   "name": "Base Bot Wa ESM By LevviCode",
   "version": "1.0.0",
+  "author": "LevviCode",
   "type": "module",
   "main": "index.js",
   "scripts": {
@@ -9,8 +10,10 @@
   "dependencies": {
     "@whiskeysockets/baileys": "npm:levvleys@latest",
     "@hapi/boom": "^10.0.1",
-    "file-type": "^19.0.0",
-    "pino": "^8.17.2",
-    "jimp": "^0.22.12"    
+    "chalk": "^4.1.2",
+    "fflate": "^0.8.2",
+    "file-type": "^21.0.0",
+    "jimp": "^0.22.12",
+    "pino": "^8.17.2"
   }
 }
