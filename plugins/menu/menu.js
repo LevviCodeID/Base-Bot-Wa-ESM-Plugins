@@ -69,7 +69,7 @@ let handler = async (m, { conn }) => {
                                             header: '',
                                             title: 'All Menu',
                                             description: 'Semua Fitur',
-                                            id: '.allmenu',
+                                            id: '.menu',
                                             highlight_label: 'POPULAR'
                                         },
                                         {
@@ -93,7 +93,7 @@ let handler = async (m, { conn }) => {
                     }
                 },
                 {
-                    buttonId: 'owner',
+                    buttonId: 'menu',
                     buttonText: {
                         displayText: ' OWNER'
                     },
