@@ -16,6 +16,7 @@ let handler = async (m, { conn }) => {
     const days = Math.floor(runtime / 86400)
     const hours = Math.floor((runtime % 86400) / 3600)
     const minutes = Math.floor((runtime % 3600) / 60)
+
     const totalPlugin = [...new Set(plugins.values())].length
     const number = m.sender.split('@')[0]
 
@@ -37,42 +38,73 @@ let handler = async (m, { conn }) => {
 *Status* : ${m.isOwner ? 'Owner' : m.isPremium ? 'Premium' : 'Free'}
 `.trim()
 
-    await conn.sendMessage(
-        m.chat,
-        {
-            buttonLocation: {
-                latitude: 0,
-                longitude: 0,
+    await conn.sendMessage(m.chat, {
+        buttonsMessage: {
+            locationMessage: {
+                degreesLatitude: 0,
+                degreesLongitude: 0,
                 name: config.botName,
                 address: 'LevviCode',
-                jpegThumbnail: thumb,
-
-                text: menu,
-                footer: config.ownerName,
-
-                listButtonText: '☰ All Menu',
-                listSectionTitle: 'Main Menu',
-
-                listMenu: [
-                    {
-                        id: '.menu',
-                        title: 'All Menu',
-                        description: 'Lihat semua fitur bot'
+                jpegThumbnail: thumb
+            },
+            contentText: menu,
+            footerText: config.ownerName,
+            buttons: [
+                {
+                    buttonId: 'menu',
+                    buttonText: {
+                        displayText: ' MENU'
+                    },
+                    type: 1,
+                    nativeFlowInfo: {
+                        name: 'single_select',
+                        paramsJson: JSON.stringify({
+                            title: 'Pilih Menu',
+                            sections: [
+                                {
+                                    title: 'Main Menu',
+                                    highlight_label: 'LevviCode',
+                                    rows: [
+                                        {
+                                            header: '',
+                                            title: 'All Menu',
+                                            description: 'Semua Fitur',
+                                            id: '.allmenu',
+                                            highlight_label: 'POPULAR'
+                                        },
+                                        {
+                                            header: '',
+                                            title: 'Script',
+                                            description: 'Informasi Script',
+                                            id: '.script',
+                                            highlight_label: 'INFO'
+                                        },
+                                        {
+                                            header: '',
+                                            title: 'Donate',
+                                            description: 'Support Developer',
+                                            id: '.donate',
+                                            highlight_label: 'SUPPORT'
+                                        }
+                                    ]
+                                }
+                            ]
+                        })
                     }
-                ],
-
-                extraButtons: [
-                    {
-                        id: '.owner',
-                        displayText: 'Owner'
-                    }
-                ]
-            }
-        },
-        {
-            quoted: m
+                },
+                {
+                    buttonId: 'owner',
+                    buttonText: {
+                        displayText: ' OWNER'
+                    },
+                    type: 1
+                }
+            ],
+            headerType: 6
         }
-    )
+    }, {
+        quoted: m
+    })
 }
 
 handler.command = ['menu', 'help']
