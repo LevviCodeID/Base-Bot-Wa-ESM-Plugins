@@ -32,6 +32,18 @@ let handler = async (m, {
     try {
         const code = m.text.slice(2).trim()
 
+        const isExpression =
+            !/^(const|let|var|if|for|while|do|switch|try|throw|return|class|function|async\s+function)\b/.test(code) &&
+            !/[;{}]\s*$/.test(code)
+
+        const body = isExpression
+            ? `
+                return (${code})
+            `
+            : `
+                ${code}
+            `
+
         const fn = new AsyncFunction(
             'conn',
             'm',
@@ -57,9 +69,7 @@ let handler = async (m, {
             'DisconnectReason',
             'Browsers',
             `
-            return (async () => {
-                ${code}
-            })()
+            ${body}
             `
         )
 
@@ -89,6 +99,8 @@ let handler = async (m, {
             Browsers
         )
 
+        if (result === undefined) return
+
         if (typeof result !== 'string') {
             result = util.inspect(result, {
                 depth: null,
@@ -96,12 +108,19 @@ let handler = async (m, {
             })
         }
 
-        await notifReply(result || 'undefined', 'Eval Result')
+        await notifReply(
+            result || 'undefined',
+            'Eval Result'
+        )
+
     } catch (e) {
-        await notifReply(util.inspect(e, {
-            depth: null,
-            colors: false
-        }), 'Eval Error')
+        await notifReply(
+            util.inspect(e, {
+                depth: null,
+                colors: false
+            }),
+            'Eval Error'
+        )
     }
 }
 
