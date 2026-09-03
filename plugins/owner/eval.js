@@ -32,6 +32,9 @@ let handler = async (m, {
     try {
         const code = m.text.slice(2).trim()
 
+        // Jika hanya "=>", jangan jalankan eval
+        if (!code) return
+
         const isExpression =
             !/^(const|let|var|if|for|while|do|switch|try|throw|return|class|function|async\s+function)\b/.test(code) &&
             !/[;{}]\s*$/.test(code)
